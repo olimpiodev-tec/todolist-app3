@@ -22,3 +22,16 @@ def buscar_tarefas():
     conn.close()
 
     return jsonify(tarefas)
+
+def buscar_tarefa(tarefa_id):
+    conn = get_conexao()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor.execute(
+        "SELECT id, nome, descricao FROM tarefas WHERE id=%s",
+        (tarefa_id,)
+    )
+    tarefa = cursor.fetchone()
+    cursor.close()
+    conn.close()
+
+    return jsonify(tarefa)

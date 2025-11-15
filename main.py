@@ -1,6 +1,6 @@
 # Importação das bibliotecas
 from flask import Flask
-from tarefa import buscar_tarefas
+from tarefa import buscar_tarefas, buscar_tarefa
 
 # Cria o objeto do flask
 app = Flask(__name__)
@@ -15,6 +15,12 @@ def index():
 def get_tarefas():
     tarefas = buscar_tarefas()
     return tarefas
+
+# Criando a rota para retornar uma única tarefa
+@app.route('/api/tarefa/<int:tarefa_id>')
+def get_tarefa(tarefa_id):
+    tarefa = buscar_tarefa(tarefa_id)
+    return tarefa
 
 # Identifica que é o arquivo principal
 # E liga o servidor executando o Flask 😊
